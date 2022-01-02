@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css">
+  <title>Splitter</title>
+</head>
+<body>
+  
+  <header>
+    <img src="./images/logo.svg" alt="">
+  </header>
+
+  <div class="calculator">
+    <div class="container">
+      <div class="bill-value">
+        <p>Bill</p>
+        <input type="number" placeholder="0" class="bill">
+        <div class="response"></div>
+      </div>
+
+      <div class="tip-amount">
+        <p>Select Tip %</p>
+        <div class="tip-btn">
+          <div class="btn" data-id="5">5%</div>
+          <div class="btn" data-id="10">10%</div>
+          <div class="btn" data-id="15">15%</div>
+          <div class="btn" data-id="20">20%</div>
+          <div class="btn" data-id="50">50%</div>
+          <input type="number" name="custom-amount" id="custom-amount" placeholder="custom">
+        </div>
+      </div>
+
+      <div class="people">
+        <p>Number of People</p>
+        <input type="number" placeholder="0" class="people-input">
+        <div class="response-2"></div>
+      </div>
+
+      <section class="results">
+
+        <div class="result-1">
+          <div class="text">
+            <p>Tip Amount</p>
+            <span>/ person</span>
+          </div>
+          <div class="outcome">£0.00</div>
+        </div>
+
+        <div class="result-2">
+          <div class="text">
+            <p>Total</p>
+            <span>/ person</span>
+          </div>
+          <div class="outcome">£0.00</div>
+        </div>
+
+        <div class="reset-btn">
+          <div class="button">RESET</div>
+        </div>
+      </section>
+    </div>
+  </div>
+  
+
+
+
+  <script src="./app.js"></script>
+</body>
+</html>
