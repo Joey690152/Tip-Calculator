@@ -93,6 +93,11 @@ header img {
   cursor: pointer;
 }
 
+.tip-amount .tip-btn .active-tip {
+  background-color: var(--main-cyan);
+  color: var(--vdark-cyan);
+}
+
 .bill-value p {
   margin-bottom: 0.5rem;
 }
@@ -149,6 +154,8 @@ header img {
   color: var(--vdark-cyan);
   cursor: pointer;
 }
+
+
 
 
 
