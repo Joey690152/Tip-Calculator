@@ -1,75 +1,83 @@
-const amountInput = document.querySelector('.bill');
-const response = document.querySelector('.response')
-const peopleInput = document.querySelector('.people-input')
-const response2 = document.querySelector('.response-2')
-const percentBtn = document.querySelectorAll('.btn')
+const billInput = document.querySelector(".bill-input");
+const peopleInput = document.querySelector(".people-input");
+const tips = document.querySelectorAll(".tips");
+const tipPerPerson = document.getElementById("tip-amount");
+const totalPerPerson = document.getElementById("total-amount");
+const resetBtn = document.querySelector(".reset");
+const tipCustom = document.querySelector(".tip-custom");
+const error = document.querySelector(".error");
 
-amountInput.addEventListener('input', amountInputFunction);
-peopleInput.addEventListener('input', peopleInputFunction);
-percentBtn.forEach(function (val) {
-  val.addEventListener('click', handleClick);
-})
+billInput.addEventListener("input", billInputFun);
+peopleInput.addEventListener("input", peopleInputFun);
+tips.forEach(function (val) {
+  val.addEventListener("click", handleClick);
+});
+resetBtn.addEventListener("click", reset);
+tipCustom.addEventListener("input", tipInputFun);
 
+billInput.value = "0.0";
+peopleInput.value = "1";
+tipPerPerson.innerHTML = "$" + (0.0).toFixed(2);
+totalPerPerson.innerHTML = "$" + (0.0).toFixed(2);
 
-amountInput.value = '0.0';
-peopleInput.value = '0';
-response.value = '£' + (0.0).toFixed(2);
-response2.value = '£' + (0.0).toFixed(2);
-
-let amountValue = 0.0;
-let peopleValue = 0;
+let billValue = 0.0;
+let peopleValue = 1;
 let tipValue = 0.15;
 
-function amountInputFunction () {
-  amountValue = parseFloat(amountInput.value);
-  console.log(amountValue)
-};
+function billInputFun() {
+  billValue = parseFloat(billInput.value);
+  calculateTip();
+}
 
-function peopleInputFunction () {
+function tipInputFun() {
+  tipValue = parseFloat(tipCustom.value / 100);
+
+  tips.forEach(function (val) {
+    val.classList.remove("active-tip");
+  });
+  calculateTip();
+}
+
+function peopleInputFun() {
   peopleValue = parseFloat(peopleInput.value);
-  console.log(peopleValue)
+
+  if (peopleValue < 1) {
+    error.style.display = "flex";
+    peopleInput.style.border = "thick solid red";
+  } else {
+    error.style.display = "none";
+    peopleInput.style.border = "none";
+    calculateTip();
+  }
 }
 
 function handleClick(event) {
-  percentBtn.forEach(function(val) {
-    val.classList.remove('active-tip')
+  tips.forEach(function (val) {
+    val.classList.remove("active-tip");
     if (event.target.innerHTML == val.innerHTML) {
-      val.classList.add('active-tip');
-      tipValue = parseFloat(val.innerHTML) / 100
+      val.classList.add("active-tip");
+      tipValue = parseFloat(val.innerHTML) / 100;
     }
   });
-  console.log(tipValue)
+  calculateTip();
 }
 
-
-
-// bill input event listener. to check value is above 0 
-
-amountInput.addEventListener('input', function(e) {
-  let value = e.target.value;
-  if (value < 1) {
-    e.preventDefault();
-    amountInput.classList.add('incorrect');
-    response.textContent = 'Bill value must be higher than 0'
-  } else {
-    response.textContent = '';
-    amountInput.classList.remove('incorrect')
+function calculateTip() {
+  if (peopleValue >= 1) {
+    let tipAmount = (billValue * tipValue) / peopleValue;
+    let total = (billValue + tipAmount) / peopleValue;
+    tipPerPerson.innerHTML = "$" + tipAmount.toFixed(2);
+    totalPerPerson.innerHTML = "$" + total.toFixed(2);
   }
-});
+}
 
-// people input event listener. to check value is above 0
-
-peopleInput.addEventListener('input', function (e) {
-  let value = e.target.value;
-  if (value < 1) {
-    e.preventDefault();
-    peopleInput.classList.add('incorrect');
-    response2.textContent = 'Number of people must be higher than 0';
-  } else {
-    response2.textContent = '';
-    peopleInput.classList.remove('incorrect')
-  }
-})
+function reset() {
+  billInput.value = "0.0";
+  billInputFun();
+  peopleInput.value = "1";
+  peopleInputFun();
+  tipCustom.value = "";
+}
 
 
 
